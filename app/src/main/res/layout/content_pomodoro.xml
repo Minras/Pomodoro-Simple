@@ -15,28 +15,15 @@
     android:orientation="vertical">
 
     <com.minras.android.pomodorosimple.PomodoroView
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <android.support.v7.widget.ButtonBarLayout
+    <Button
+        android:id="@+id/btn_action"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_start_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_start"
-            android:gravity="center_horizontal"
-            />
-
-        <Button
-            android:id="@+id/btn_start_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_pause"
-            android:gravity="center_horizontal"
-            />
-    </android.support.v7.widget.ButtonBarLayout>
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="16dp"
+        />
 
 </LinearLayout>

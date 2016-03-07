@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 public class PomodoroView extends View {
-
-    private static final String COLOR_HEX = "#888888";
+    private static final int DIAMETER_PERCENTAGE = 62;
+    private static final int STROKE_SIZE = 8;
+    private static final String COLOR_HEX = "#FFA500";
     private final Paint drawPaint;
     private       float size;
 
@@ -21,16 +22,24 @@ public class PomodoroView extends View {
         drawPaint = new Paint();
         drawPaint.setColor(Color.parseColor(COLOR_HEX));
         drawPaint.setAntiAlias(true);
+        drawPaint.setStyle(Paint.Style.STROKE);
+        drawPaint.setStrokeWidth(STROKE_SIZE);
         setOnMeasureCallback();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int diameter = Math.min(
+                MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec));
+        setMeasuredDimension(
+                diameter * DIAMETER_PERCENTAGE / 100,
+                diameter * DIAMETER_PERCENTAGE / 100);
     }
 
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        if (size < 10) {
-            size = 10;
-        }
-        canvas.drawCircle(size, size, size, drawPaint);
+        canvas.drawCircle(size, size, size - STROKE_SIZE, drawPaint);
     }
 
     private void setOnMeasureCallback() {

@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- UI elements -->
-    <string name="btn_start">Start</string>
-    <string name="btn_stop">Stop</string>
-    <string name="btn_pause">Pause</string>
+    <string name="btn_text_start">Start</string>
+    <string name="btn_text_stop">Stop</string>
+    <string name="btn_text_pause">Pause</string>
 </resources>
