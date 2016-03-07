@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pomodoro Simple</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- UI elements -->
+    <string name="btn_start">Start</string>
+</resources>
