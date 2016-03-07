@@ -4,4 +4,6 @@
 
     <!-- UI elements -->
     <string name="btn_start">Start</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_pause">Pause</string>
 </resources>
