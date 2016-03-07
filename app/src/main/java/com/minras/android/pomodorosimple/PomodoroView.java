@@ -1,24 +1,55 @@
 package com.minras.android.pomodorosimple;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Build;
 import android.util.AttributeSet;
-import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
-public class PomodoroView extends SurfaceView {
+public class PomodoroView extends View {
 
-    public PomodoroView(Context context) {
-        super(context);
-    }
+    private static final String COLOR_HEX = "#888888";
+    private final Paint drawPaint;
+    private       float size;
 
-    public PomodoroView(Context context, AttributeSet attrs) {
+    public PomodoroView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
+        drawPaint = new Paint();
+        drawPaint.setColor(Color.parseColor(COLOR_HEX));
+        drawPaint.setAntiAlias(true);
+        setOnMeasureCallback();
     }
 
-    public PomodoroView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    @Override
+    protected void onDraw(final Canvas canvas) {
+        super.onDraw(canvas);
+        if (size < 10) {
+            size = 10;
+        }
+        canvas.drawCircle(size, size, size, drawPaint);
     }
-//
-//    public PomodoroView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//    }
+
+    private void setOnMeasureCallback() {
+        ViewTreeObserver vto = getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                removeOnGlobalLayoutListener(this);
+                size = getMeasuredWidth() / 2;
+            }
+        });
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void removeOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener listener) {
+        if (Build.VERSION.SDK_INT < 16) {
+            getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+        } else {
+            getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+        }
+    }
 }
