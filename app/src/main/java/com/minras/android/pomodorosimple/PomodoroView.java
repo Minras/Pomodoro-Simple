@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,18 +13,29 @@ import android.view.ViewTreeObserver;
 
 public class PomodoroView extends View {
     private static final int DIAMETER_PERCENTAGE = 62;
-    private static final int STROKE_SIZE = 8;
-    private static final String COLOR_HEX = "#FFA500";
-    private final Paint drawPaint;
-    private       float size;
+    private static final int STROKE_SIZE = 12;
+    private static final int COLOR_TIMER_FG = Color.parseColor("#FFA500");
+    private final Paint drawPaintFg;
+    private static final int COLOR_TIMER_BG = Color.parseColor("#AAAAAA");
+    private final Paint drawPaintBg;
+    private float size;
+    RectF timerRectange = new RectF(0, 0, 1, 1);
 
     public PomodoroView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        drawPaint = new Paint();
-        drawPaint.setColor(Color.parseColor(COLOR_HEX));
-        drawPaint.setAntiAlias(true);
-        drawPaint.setStyle(Paint.Style.STROKE);
-        drawPaint.setStrokeWidth(STROKE_SIZE);
+
+        drawPaintFg = new Paint();
+        drawPaintFg.setColor(COLOR_TIMER_FG);
+        drawPaintFg.setAntiAlias(true);
+        drawPaintFg.setStyle(Paint.Style.STROKE);
+        drawPaintFg.setStrokeWidth(STROKE_SIZE);
+
+        drawPaintBg = new Paint();
+        drawPaintBg.setColor(COLOR_TIMER_BG);
+        drawPaintBg.setAntiAlias(true);
+        drawPaintBg.setStyle(Paint.Style.STROKE);
+        drawPaintBg.setStrokeWidth(STROKE_SIZE);
+
         setOnMeasureCallback();
     }
 
@@ -39,7 +51,9 @@ public class PomodoroView extends View {
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawCircle(size, size, size - STROKE_SIZE, drawPaint);
+        //canvas.drawCircle(size, size, size - STROKE_SIZE, drawPaintBg);
+        canvas.drawArc(timerRectange, -90, 60, false, drawPaintFg);
+        canvas.drawArc(timerRectange, -30, 300, false, drawPaintBg);
     }
 
     private void setOnMeasureCallback() {
@@ -49,6 +63,7 @@ public class PomodoroView extends View {
             public void onGlobalLayout() {
                 removeOnGlobalLayoutListener(this);
                 size = getMeasuredWidth() / 2;
+                timerRectange.set(STROKE_SIZE, STROKE_SIZE, 2*size - STROKE_SIZE, 2*size - STROKE_SIZE);
             }
         });
     }
