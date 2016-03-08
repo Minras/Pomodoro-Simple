@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -17,4 +17,35 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Base.Theme.Pomodoro" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Animation" />
+    <style name="Theme.Pomodoro.Translucent" parent="Base.Theme.Pomodoro">
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+
+    <style name="Theme.Pomodoro.Finished" parent="Base.Theme.Pomodoro">
+        <item name="colorPrimary">@color/finished_green</item>
+        <item name="colorPrimaryDark">@color/finished_green_dark</item>
+    </style>
+
+    <style name="Theme.Pomodoro.Ongoing" parent="Base.Theme.Pomodoro">
+        <item name="colorPrimary">@color/ongoing_red</item>
+        <item name="colorPrimaryDark">@color/ongoing_red_dark</item>
+    </style>
+
+    <style name="TextAppearance.Pomodoro.TimeDisplay" parent="TextAppearance.AppCompat.Display4" >
+        <item name="android:textSize">72sp</item>
+    </style>
 </resources>
