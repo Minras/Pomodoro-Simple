@@ -19,6 +19,7 @@ public class PomodoroView extends View {
     private static final int COLOR_TIMER_BG = Color.parseColor("#AAAAAA");
     private final Paint drawPaintBg;
     private float size;
+    private float percentComplete = 0;
     RectF timerRectange = new RectF(0, 0, 1, 1);
 
     public PomodoroView(final Context context, final AttributeSet attrs) {
@@ -51,9 +52,11 @@ public class PomodoroView extends View {
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
+
         //canvas.drawCircle(size, size, size - STROKE_SIZE, drawPaintBg);
-        canvas.drawArc(timerRectange, -90, 60, false, drawPaintFg);
-        canvas.drawArc(timerRectange, -30, 300, false, drawPaintBg);
+        float x = 360 * (1 - percentComplete);
+        canvas.drawArc(timerRectange, -90, x, false, drawPaintBg);
+        canvas.drawArc(timerRectange, -90 + x, 360 * percentComplete, false, drawPaintFg);
     }
 
     private void setOnMeasureCallback() {
@@ -63,7 +66,7 @@ public class PomodoroView extends View {
             public void onGlobalLayout() {
                 removeOnGlobalLayoutListener(this);
                 size = getMeasuredWidth() / 2;
-                timerRectange.set(STROKE_SIZE, STROKE_SIZE, 2*size - STROKE_SIZE, 2*size - STROKE_SIZE);
+                timerRectange.set(STROKE_SIZE, STROKE_SIZE, 2 * size - STROKE_SIZE, 2*size - STROKE_SIZE);
             }
         });
     }
@@ -75,5 +78,10 @@ public class PomodoroView extends View {
         } else {
             getViewTreeObserver().removeOnGlobalLayoutListener(listener);
         }
+    }
+
+    public void updateTimer(long msTotal, long msLeft) {
+        percentComplete = (float)(msTotal - msLeft) / msTotal;
+        this.invalidate();
     }
 }

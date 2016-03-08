@@ -17,6 +17,7 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
 
     private Button actionButton;
     private TextView timerText;
+    private PomodoroView timerImage;
     CountDownTimer timer;
 
     @Override
@@ -30,6 +31,7 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         actionButton.setOnClickListener(this);
 
         timerText = (TextView) findViewById(R.id.timer_text);
+        timerImage = (PomodoroView) findViewById(R.id.timer_image);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,19 +63,26 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         timer = new CountDownTimer(DURATION_WORK, TICK_MS) {
 
             public void onTick(long millisUntilFinished) {
-                int minutes = (int)(millisUntilFinished / 60000);
-                int seconds = (int)((millisUntilFinished - minutes * 60000) / 1000);
-                timerText.setText(String.format("%02d:%02d", minutes, seconds));
+                updateTimer(millisUntilFinished);
             }
 
             public void onFinish() {
-                timerText.setText("00:00");
+                updateTimer(0);
             }
         }.start();
     }
 
     private void stopTimer() {
         timer.cancel();
+        updateTimer(DURATION_WORK);
+    }
+
+    private void updateTimer(long msUntilFinished) {
+        int minutes = (int)(msUntilFinished / 60000);
+        int seconds = (int)((msUntilFinished - minutes * 60000) / 1000);
+        timerText.setText(String.format("%02d:%02d", minutes, seconds));
+
+        timerImage.updateTimer(DURATION_WORK, msUntilFinished);
     }
 
     @Override

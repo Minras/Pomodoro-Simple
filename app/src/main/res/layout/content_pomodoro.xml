@@ -15,6 +15,7 @@
     android:orientation="vertical">
 
     <com.minras.android.pomodorosimple.PomodoroView
+        android:id="@+id/timer_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
