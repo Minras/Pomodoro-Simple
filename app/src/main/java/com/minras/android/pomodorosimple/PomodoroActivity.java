@@ -20,6 +20,8 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
     private PomodoroView timerImage;
     CountDownTimer timer;
 
+    private boolean isCounting = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,24 +61,29 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO move
     private void startTimer() {
         timer = new CountDownTimer(DURATION_WORK, TICK_MS) {
 
             public void onTick(long millisUntilFinished) {
                 updateTimer(millisUntilFinished);
+                isCounting = true;
             }
 
             public void onFinish() {
+                isCounting = false;
                 updateTimer(0);
             }
         }.start();
     }
 
+    // TODO move
     private void stopTimer() {
         timer.cancel();
         updateTimer(DURATION_WORK);
     }
 
+    // TODO move
     private void updateTimer(long msUntilFinished) {
         int minutes = (int)(msUntilFinished / 60000);
         int seconds = (int)((msUntilFinished - minutes * 60000) / 1000);
