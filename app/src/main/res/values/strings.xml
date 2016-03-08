@@ -5,5 +5,4 @@
     <!-- UI elements -->
     <string name="btn_text_start">Start</string>
     <string name="btn_text_stop">Stop</string>
-    <string name="btn_text_pause">Pause</string>
 </resources>

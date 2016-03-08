@@ -29,11 +29,12 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_pomodoro);
 
         actionButton = (Button) findViewById(R.id.btn_action);
-        actionButton.setText(R.string.btn_text_start);
         actionButton.setOnClickListener(this);
 
         timerText = (TextView) findViewById(R.id.timer_text);
         timerImage = (PomodoroView) findViewById(R.id.timer_image);
+
+        updateTimer(DURATION_WORK);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,7 +65,6 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
     // TODO move
     private void startTimer() {
         timer = new CountDownTimer(DURATION_WORK, TICK_MS) {
-
             public void onTick(long millisUntilFinished) {
                 updateTimer(millisUntilFinished);
                 isCounting = true;
@@ -75,6 +75,7 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
                 updateTimer(0);
             }
         }.start();
+        updateTimer(DURATION_WORK - 1);
     }
 
     // TODO move
@@ -90,13 +91,20 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         timerText.setText(String.format("%02d:%02d", minutes, seconds));
 
         timerImage.updateTimer(DURATION_WORK, msUntilFinished);
+
+        actionButton.setText(0 == msUntilFinished || DURATION_WORK == msUntilFinished ?
+                R.string.btn_text_start : R.string.btn_text_stop);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_action:
-                startTimer();
+                if (isCounting) {
+                    stopTimer();
+                } else {
+                    startTimer();
+                }
                 break;
         }
     }
