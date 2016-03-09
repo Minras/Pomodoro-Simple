@@ -1,5 +1,6 @@
 package com.minras.android.pomodorosimple;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -56,10 +57,16 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            openSettingsPage();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openSettingsPage() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     // TODO move
