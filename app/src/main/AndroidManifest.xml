@@ -28,6 +28,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.minras.android.pomodorosimple.PomodoroActivity" />
         </activity>
+        <activity android:name=".CreditsActivity">
+
+        </activity>
     </application>
 
 </manifest>

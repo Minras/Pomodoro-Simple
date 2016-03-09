@@ -53,19 +53,25 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            openSettingsPage();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                openSettingsPage();
+                return true;
+            case R.id.action_credits:
+                openCreditsPage();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void openSettingsPage() {
         Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void openCreditsPage() {
+        Intent intent = new Intent(this, CreditsActivity.class);
         startActivity(intent);
     }
 

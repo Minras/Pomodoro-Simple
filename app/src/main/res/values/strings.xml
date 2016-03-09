@@ -6,9 +6,12 @@
     <!-- UI elements -->
     <string name="btn_text_start">Start</string>
     <string name="btn_text_stop">Stop</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Credits -->
+    <string name="title_activity_credits">Credits</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
