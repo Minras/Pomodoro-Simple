@@ -12,6 +12,12 @@
 
     <!-- Strings related to Credits -->
     <string name="title_activity_credits">Credits</string>
+    <string name="credits_text_icon">
+ <![CDATA[
+ <h2>Application Icon</h2>
+ <p>Icon made by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">www.flaticon.com</a></p>
+ ]]>
+    </string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

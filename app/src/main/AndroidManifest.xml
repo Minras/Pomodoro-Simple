@@ -28,8 +28,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.minras.android.pomodorosimple.PomodoroActivity" />
         </activity>
-        <activity android:name=".CreditsActivity">
-
+        <activity
+            android:name=".CreditsActivity"
+            android:label="@string/title_activity_credits"
+            android:parentActivityName=".PomodoroActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.minras.android.pomodorosimple.PomodoroActivity" />
         </activity>
     </application>
 
