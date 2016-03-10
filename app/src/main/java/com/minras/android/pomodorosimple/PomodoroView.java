@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver;
 public class PomodoroView extends View {
     private static final int DIAMETER_PERCENTAGE = 62;
     private static final int STROKE_SIZE = 12;
+    // private static final int ARROW_RADIUS = 6;
     private final Paint drawPaintFg;
     private final Paint drawPaintBg;
     private float size;
@@ -56,6 +57,12 @@ public class PomodoroView extends View {
         float x = 360 * (1 - percentComplete);
         canvas.drawArc(timerRectange, -90, x, false, drawPaintBg);
         canvas.drawArc(timerRectange, -90 + x, 360 * percentComplete, false, drawPaintFg);
+//        float radius = size - 2 * ARROW_RADIUS;
+//        canvas.drawCircle(
+//                size + STROKE_SIZE - ARROW_RADIUS + radius * (float)Math.cos((-90 + x) * Math.PI / 180),
+//                size + STROKE_SIZE - ARROW_RADIUS + radius * (float)Math.sin((-90 + x) * Math.PI / 180),
+//                ARROW_RADIUS,
+//                drawPaintFg);
     }
 
     private void setOnMeasureCallback() {
@@ -65,7 +72,11 @@ public class PomodoroView extends View {
             public void onGlobalLayout() {
                 removeOnGlobalLayoutListener(this);
                 size = getMeasuredWidth() / 2;
-                timerRectange.set(STROKE_SIZE, STROKE_SIZE, 2 * size - STROKE_SIZE, 2*size - STROKE_SIZE);
+                timerRectange.set(
+                        STROKE_SIZE,
+                        STROKE_SIZE,
+                        2 * size - STROKE_SIZE,
+                        2 * size - STROKE_SIZE);
             }
         });
     }
