@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -14,9 +15,7 @@ import android.view.ViewTreeObserver;
 public class PomodoroView extends View {
     private static final int DIAMETER_PERCENTAGE = 62;
     private static final int STROKE_SIZE = 12;
-    private static final int COLOR_TIMER_FG = Color.parseColor("#FFA500");
     private final Paint drawPaintFg;
-    private static final int COLOR_TIMER_BG = Color.parseColor("#AAAAAA");
     private final Paint drawPaintBg;
     private float size;
     private float percentComplete = 0;
@@ -26,13 +25,13 @@ public class PomodoroView extends View {
         super(context, attrs);
 
         drawPaintFg = new Paint();
-        drawPaintFg.setColor(COLOR_TIMER_FG);
+        drawPaintFg.setColor(ContextCompat.getColor(context, R.color.colorAccent));
         drawPaintFg.setAntiAlias(true);
         drawPaintFg.setStyle(Paint.Style.STROKE);
         drawPaintFg.setStrokeWidth(STROKE_SIZE);
 
         drawPaintBg = new Paint();
-        drawPaintBg.setColor(COLOR_TIMER_BG);
+        drawPaintBg.setColor(ContextCompat.getColor(context, R.color.colorDivider));
         drawPaintBg.setAntiAlias(true);
         drawPaintBg.setStyle(Paint.Style.STROKE);
         drawPaintBg.setStrokeWidth(STROKE_SIZE);
