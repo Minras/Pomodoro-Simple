@@ -9,9 +9,9 @@
 
     <!-- Strings related to Settings -->
     <string name="title_activity_settings">Settings</string>
-    <string name="header_settings_work_duration">Work time duration</string>
-    <string name="header_settings_shortbreak_duration">Short break duration</string>
-    <string name="header_settings_longbreak_duration">Long break duration</string>
+    <string name="header_settings_work_duration">Work time duration: %d min.</string>
+    <string name="header_settings_shortbreak_duration">Short break duration: %d min.</string>
+    <string name="header_settings_longbreak_duration">Long break duration: %d min.</string>
 
     <!-- Strings related to Credits -->
     <string name="title_activity_credits">Credits</string>
