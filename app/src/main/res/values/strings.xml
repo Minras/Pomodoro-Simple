@@ -6,6 +6,7 @@
     <!-- UI elements -->
     <string name="btn_text_start">Start</string>
     <string name="btn_text_stop">Stop</string>
+    <string name="btn_text_reset_defaults">Reset to default values</string>
 
     <!-- Strings related to Settings -->
     <string name="title_activity_settings">Settings</string>

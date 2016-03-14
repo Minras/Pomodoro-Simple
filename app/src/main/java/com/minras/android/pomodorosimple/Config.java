@@ -35,6 +35,12 @@ public class Config {
         return this;
     }
 
+    public void restoreDefault() {
+        setDurationWork(DEFAULT_DURATION_WORK);
+        setDurationShortBreak(DEFAULT_DURATION_SHORTBREAK);
+        setDurationLongBreak(DEFAULT_DURATION_LONGBREAK);
+    }
+
     public int getDurationWork() {
         return storage.getInt(STORAGE_KEY_DURATION_WORK, DEFAULT_DURATION_WORK);
     }

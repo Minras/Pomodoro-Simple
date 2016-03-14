@@ -47,4 +47,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/duration_longbreak"
         android:max="119"/>
+
+    <Button
+        android:id="@+id/settings_btn_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_refresh_24dp"
+        android:text="@string/btn_text_reset_defaults"
+        />
 </LinearLayout>

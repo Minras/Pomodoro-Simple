@@ -3,6 +3,7 @@ package com.minras.android.pomodorosimple;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupUi() {
+        Button btnReset = (Button) findViewById(R.id.settings_btn_reset);
+
         durationWorkText = (TextView) findViewById(R.id.duration_work_text);
         updateDurationText(
                 durationWorkText,
