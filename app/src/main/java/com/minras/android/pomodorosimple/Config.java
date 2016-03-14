@@ -10,7 +10,9 @@ public class Config {
     private final static String STORAGE_KEY_DURATION_WORK = "duration.work";
     private final static int DEFAULT_DURATION_WORK = 25;
     private final static String STORAGE_KEY_DURATION_SHORTBREAK = "duration.shortbreak";
+    private final static int DEFAULT_DURATION_SHORTBREAK = 5;
     private final static String STORAGE_KEY_DURATION_LONGBREAK = "duration.longbreak";
+    private final static int DEFAULT_DURATION_LONGBREAK = 15;
 
     private static Config instance = null;
     private SharedPreferences storage;
@@ -39,5 +41,21 @@ public class Config {
 
     public void setDurationWork(int duration) {
         storage.edit().putInt(STORAGE_KEY_DURATION_WORK, duration).apply();
+    }
+
+    public int getDurationShortBreak() {
+        return storage.getInt(STORAGE_KEY_DURATION_SHORTBREAK, DEFAULT_DURATION_SHORTBREAK);
+    }
+
+    public void setDurationShortBreak(int duration) {
+        storage.edit().putInt(STORAGE_KEY_DURATION_SHORTBREAK, duration).apply();
+    }
+
+    public int getDurationLongBreak() {
+        return storage.getInt(STORAGE_KEY_DURATION_LONGBREAK, DEFAULT_DURATION_LONGBREAK);
+    }
+
+    public void setDurationLongBreak(int duration) {
+        storage.edit().putInt(STORAGE_KEY_DURATION_LONGBREAK, duration).apply();
     }
 }

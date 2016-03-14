@@ -25,6 +25,7 @@
         android:max="599"/>
 
     <TextView
+        android:id="@+id/duration_shortbreak_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AppTheme.H2"
@@ -36,6 +37,7 @@
         android:max="119"/>
 
     <TextView
+        android:id="@+id/duration_longbreak_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AppTheme.H2"
