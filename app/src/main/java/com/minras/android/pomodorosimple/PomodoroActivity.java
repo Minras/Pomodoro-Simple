@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class PomodoroActivity extends AppCompatActivity implements View.OnClickListener {
-    private static int DURATION_WORK = 25 * 60 * 1000;
-    private static int DURATION_BREAK = 5 * 60 * 1000;
     private static int TICK_MS = 500;
 
     private Button actionButton;
@@ -35,7 +33,7 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         timerText = (TextView) findViewById(R.id.timer_text);
         timerImage = (PomodoroView) findViewById(R.id.timer_image);
 
-        updateTimer(DURATION_WORK);
+        updateTimer(Config.getInstance().getDurationWork() * 60 * 1000);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +75,8 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
 
     // TODO move
     private void startTimer() {
-        timer = new CountDownTimer(DURATION_WORK, TICK_MS) {
+        int durationWork = Config.getInstance().getDurationWork() * 60 * 1000;
+        timer = new CountDownTimer(durationWork, TICK_MS) {
             public void onTick(long millisUntilFinished) {
                 updateTimer(millisUntilFinished);
                 isCounting = true;
@@ -88,13 +87,13 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
                 updateTimer(0);
             }
         }.start();
-        updateTimer(DURATION_WORK - 1);
+        updateTimer(durationWork - 1);
     }
 
     // TODO move
     private void stopTimer() {
         timer.cancel();
-        updateTimer(DURATION_WORK);
+        updateTimer(Config.getInstance().getDurationWork() * 60 * 1000);
     }
 
     // TODO move
@@ -103,9 +102,10 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         int seconds = (int)((msUntilFinished - minutes * 60000) / 1000);
         timerText.setText(String.format("%02d:%02d", minutes, seconds));
 
-        timerImage.updateTimer(DURATION_WORK, msUntilFinished);
+        timerImage.updateTimer(Config.getInstance().getDurationWork() * 60 * 1000, msUntilFinished);
 
-        actionButton.setText(0 == msUntilFinished || DURATION_WORK == msUntilFinished ?
+        actionButton.setText(0 == msUntilFinished ||
+                Config.getInstance().getDurationWork() * 60 * 1000 == msUntilFinished ?
                 R.string.btn_text_start : R.string.btn_text_stop);
     }
 
