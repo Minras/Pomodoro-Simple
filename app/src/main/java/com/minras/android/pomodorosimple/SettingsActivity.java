@@ -3,11 +3,12 @@ package com.minras.android.pomodorosimple;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     SeekBar durationWork;
     TextView durationWorkText;
@@ -30,6 +31,22 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.settings_btn_reset:
+                Config.getInstance().restoreDefaults();
+                setDefaultUiValues();
+                break;
+        }
+    }
+
+    private void setDefaultUiValues() {
+        durationWork.setProgress(Config.getInstance().getDurationWork() - 1);
+        durationShortBreak.setProgress(Config.getInstance().getDurationShortBreak() - 1);
+        durationLongBreak.setProgress(Config.getInstance().getDurationLongBreak() - 1);
+    }
+
     private void updateDurationText(TextView view, int resource, Object... args) {
         view.setText(
                 String.format(getResources().getString(resource), args)
@@ -37,8 +54,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupUi() {
-        Button btnReset = (Button) findViewById(R.id.settings_btn_reset);
-
         durationWorkText = (TextView) findViewById(R.id.duration_work_text);
         updateDurationText(
                 durationWorkText,
@@ -119,5 +134,10 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        Button btnReset = (Button) findViewById(R.id.settings_btn_reset);
+        btnReset.setOnClickListener(this);
+
+        setDefaultUiValues();
     }
 }

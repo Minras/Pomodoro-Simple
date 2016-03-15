@@ -35,7 +35,7 @@ public class Config {
         return this;
     }
 
-    public void restoreDefault() {
+    public void restoreDefaults() {
         setDurationWork(DEFAULT_DURATION_WORK);
         setDurationShortBreak(DEFAULT_DURATION_SHORTBREAK);
         setDurationLongBreak(DEFAULT_DURATION_LONGBREAK);
