@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.minras.android.pomodorosimple.util.Config;
+
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     SeekBar durationWork;

@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.minras.android.pomodorosimple.util.Config;
+
 public class PomodoroActivity extends AppCompatActivity implements View.OnClickListener {
     private static int TICK_MS = 500;
 

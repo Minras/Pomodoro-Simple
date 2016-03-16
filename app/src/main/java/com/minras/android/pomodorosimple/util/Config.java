@@ -1,4 +1,4 @@
-package com.minras.android.pomodorosimple;
+package com.minras.android.pomodorosimple.util;
 
 import android.content.SharedPreferences;
 
