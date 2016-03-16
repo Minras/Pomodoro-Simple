@@ -5,6 +5,12 @@ import android.os.CountDownTimer;
 import java.util.ArrayList;
 
 public class Pomodoro {
+    private static final int STATUS_WORK = 0;
+    private static final int STATUS_SHORTBREAK = 1;
+    private static final int STATUS_LONGBREAK = 2;
+
+    private int status = STATUS_WORK;
+
     private static Pomodoro instance = new Pomodoro();
 
     ArrayList<PomodoroListener> listeners = new ArrayList<> ();
@@ -48,6 +54,14 @@ public class Pomodoro {
                 fireOnTimerStop();
             }
         }.start();
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public interface PomodoroListener
