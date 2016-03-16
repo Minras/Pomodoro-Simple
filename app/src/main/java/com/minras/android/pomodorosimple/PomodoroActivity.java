@@ -2,7 +2,6 @@ package com.minras.android.pomodorosimple;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,16 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.minras.android.pomodorosimple.util.Config;
+import com.minras.android.pomodorosimple.util.Pomodoro;
 
-public class PomodoroActivity extends AppCompatActivity implements View.OnClickListener {
-    private static int TICK_MS = 500;
+public class PomodoroActivity extends AppCompatActivity
+        implements View.OnClickListener, Pomodoro.PomodoroListener {
 
-    private Button actionButton;
+    private Button btnStart;
+    private Button btnStop;
     private TextView timerText;
     private PomodoroView timerImage;
-    CountDownTimer timer;
-
-    private boolean isCounting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +27,16 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
 
         setContentView(R.layout.activity_pomodoro);
 
-        actionButton = (Button) findViewById(R.id.btn_action);
-        actionButton.setOnClickListener(this);
+        btnStart = (Button) findViewById(R.id.btn_start);
+        btnStart.setOnClickListener(this);
+
+        btnStop = (Button) findViewById(R.id.btn_stop);
+        btnStop.setOnClickListener(this);
 
         timerText = (TextView) findViewById(R.id.timer_text);
         timerImage = (PomodoroView) findViewById(R.id.timer_image);
+
+        Pomodoro.getInstance().addPomodoroListener(this);
 
         updateTimer(Config.getInstance().getDurationWork() * 60 * 1000);
 
@@ -75,27 +78,14 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
         startActivity(intent);
     }
 
-    // TODO move
     private void startTimer() {
-        int durationWork = Config.getInstance().getDurationWork() * 60 * 1000;
-        timer = new CountDownTimer(durationWork, TICK_MS) {
-            public void onTick(long millisUntilFinished) {
-                updateTimer(millisUntilFinished);
-                isCounting = true;
-            }
-
-            public void onFinish() {
-                isCounting = false;
-                updateTimer(0);
-            }
-        }.start();
-        updateTimer(durationWork - 1);
+        Pomodoro.getInstance().startTimer();
+        updateTimer(Pomodoro.getInstance().getCurrentDuration() - 1);
     }
 
-    // TODO move
     private void stopTimer() {
-        timer.cancel();
-        updateTimer(Config.getInstance().getDurationWork() * 60 * 1000);
+        Pomodoro.getInstance().stopTimer();
+        updateTimer(Pomodoro.getInstance().getCurrentDuration());
     }
 
     // TODO move
@@ -106,21 +96,31 @@ public class PomodoroActivity extends AppCompatActivity implements View.OnClickL
 
         timerImage.updateTimer(Config.getInstance().getDurationWork() * 60 * 1000, msUntilFinished);
 
-        actionButton.setText(0 == msUntilFinished ||
-                Config.getInstance().getDurationWork() * 60 * 1000 == msUntilFinished ?
-                R.string.btn_text_start : R.string.btn_text_stop);
+        boolean canStart = 0 == msUntilFinished ||
+                Config.getInstance().getDurationWork() * 60 * 1000 == msUntilFinished;
+//        btnStart.setVisibility(canStart ? View.VISIBLE : View.GONE);
+//        btnStop.setVisibility(canStart ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_action:
-                if (isCounting) {
-                    stopTimer();
-                } else {
-                    startTimer();
-                }
+            case R.id.btn_start:
+                startTimer();
+                break;
+            case R.id.btn_stop:
+                stopTimer();
                 break;
         }
+    }
+
+    @Override
+    public void onTimerUpdate(long millisUntilFinished) {
+        updateTimer(millisUntilFinished);
+    }
+
+    @Override
+    public void onTimerStop() {
+        updateTimer(0);
     }
 }

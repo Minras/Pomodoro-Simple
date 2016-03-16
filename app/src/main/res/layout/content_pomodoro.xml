@@ -27,10 +27,17 @@
         android:id="@+id/timer_text" />
 
     <Button
-        android:id="@+id/btn_action"
+        android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="@string/btn_text_start"
+        android:layout_marginTop="16dp"
+        />
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_text_stop"
         android:layout_marginTop="16dp"
         />
 
