@@ -98,8 +98,8 @@ public class PomodoroActivity extends AppCompatActivity
 
         boolean canStart = 0 == msUntilFinished ||
                 Config.getInstance().getDurationWork() * 60 * 1000 == msUntilFinished;
-//        btnStart.setVisibility(canStart ? View.VISIBLE : View.GONE);
-//        btnStop.setVisibility(canStart ? View.VISIBLE : View.GONE);
+        btnStart.setVisibility(canStart ? View.VISIBLE : View.GONE);
+        btnStop.setVisibility(canStart ? View.GONE : View.VISIBLE);
     }
 
     @Override
