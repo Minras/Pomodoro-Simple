@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/duration_work"
-        android:max="599"/>
+        android:max="179"/>
 
     <TextView
         android:id="@+id/duration_shortbreak_text"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/duration_shortbreak"
-        android:max="119"/>
+        android:max="59"/>
 
     <TextView
         android:id="@+id/duration_longbreak_text"
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/duration_longbreak"
-        android:max="119"/>
+        android:max="59"/>
 
     <Button
         android:id="@+id/settings_btn_reset"
