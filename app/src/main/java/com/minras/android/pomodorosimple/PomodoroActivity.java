@@ -38,7 +38,7 @@ public class PomodoroActivity extends AppCompatActivity
 
         Pomodoro.getInstance().addPomodoroListener(this);
 
-        updateTimer(Config.getInstance().getDurationWork() * 60 * 1000);
+        updateTimer(Pomodoro.getInstance().getCurrentFullDuration());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,12 +80,12 @@ public class PomodoroActivity extends AppCompatActivity
 
     private void startTimer() {
         Pomodoro.getInstance().startTimer();
-        updateTimer(Pomodoro.getInstance().getCurrentDuration() - 1);
+        updateTimer(Pomodoro.getInstance().getCurrentFullDuration() - 1);
     }
 
     private void stopTimer() {
         Pomodoro.getInstance().stopTimer();
-        updateTimer(Pomodoro.getInstance().getCurrentDuration());
+        updateTimer(Pomodoro.getInstance().getCurrentFullDuration());
     }
 
     // TODO move
@@ -94,12 +94,11 @@ public class PomodoroActivity extends AppCompatActivity
         int seconds = (int)((msUntilFinished - minutes * 60000) / 1000);
         timerText.setText(String.format("%02d:%02d", minutes, seconds));
 
-        timerImage.updateTimer(Config.getInstance().getDurationWork() * 60 * 1000, msUntilFinished);
+        Pomodoro pomodoro = Pomodoro.getInstance();
+        timerImage.updateTimer(pomodoro.getCurrentFullDuration(), msUntilFinished);
 
-        boolean canStart = 0 == msUntilFinished ||
-                Config.getInstance().getDurationWork() * 60 * 1000 == msUntilFinished;
-        btnStart.setVisibility(canStart ? View.VISIBLE : View.GONE);
-        btnStop.setVisibility(canStart ? View.GONE : View.VISIBLE);
+        btnStop.setVisibility(pomodoro.isCounting() ? View.VISIBLE : View.GONE);
+        btnStart.setVisibility(pomodoro.isCounting() ? View.GONE : View.VISIBLE);
     }
 
     @Override
