@@ -64,6 +64,18 @@ public class Pomodoro {
         this.status = status;
     }
 
+    public void setNextStatus() {
+        switch (getStatus()) {
+            case STATUS_WORK:
+                setStatus(STATUS_SHORTBREAK);
+                break;
+            case STATUS_SHORTBREAK:
+            default:
+                setStatus(STATUS_WORK);
+                break;
+        }
+    }
+
     public interface PomodoroListener
     {
         void onTimerUpdate(long millisUntilFinished);
