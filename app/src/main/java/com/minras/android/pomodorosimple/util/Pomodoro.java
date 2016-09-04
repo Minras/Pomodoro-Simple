@@ -101,6 +101,7 @@ public class Pomodoro {
     public void addPomodoroListener (PomodoroListener listener)
     {
         this.listeners.add(listener);
+        updateCurrentFullDuration();
     }
     public void removePomodoroListener (PomodoroListener listener)
     {
