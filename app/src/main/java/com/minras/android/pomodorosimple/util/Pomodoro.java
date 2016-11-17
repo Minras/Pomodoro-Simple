@@ -32,8 +32,8 @@ public class Pomodoro {
     public long getCurrentFullDuration() {
         return currentFullDuration;
     }
-    private void setCurrentFullDuration(int seconds) {
-        currentFullDuration = seconds * 60 * 1000;
+    private void setCurrentFullDuration(int minutes) {
+        currentFullDuration = minutes != 1 ? minutes * 60 * 1000 : 5000;
     }
     private void updateCurrentFullDuration() {
         switch (getStatus()) {
