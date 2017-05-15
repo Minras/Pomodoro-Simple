@@ -3,9 +3,16 @@
     <string name="action_settings">Settings</string>
     <string name="action_credits">Credits</string>
 
+    <!-- Dialogs -->
+    <string name="dialog_message">Do you want to start a break or start a new work period?</string>
+    <string name="dialog_title">Start a break?</string>
+
     <!-- UI elements -->
+    <string name="btn_text_cancel">Cancel</string>
     <string name="btn_text_start">Start</string>
     <string name="btn_text_stop">Stop</string>
+    <string name="btn_text_start_break">Start break</string>
+    <string name="btn_text_continue_work">Continue working</string>
     <string name="btn_text_reset_defaults">Reset to default values</string>
 
     <!-- Strings related to Settings -->

@@ -1,7 +1,9 @@
 package com.minras.android.pomodorosimple;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.minras.android.pomodorosimple.util.Config;
 import com.minras.android.pomodorosimple.util.Pomodoro;
 
 public class PomodoroActivity extends AppCompatActivity
@@ -20,6 +21,7 @@ public class PomodoroActivity extends AppCompatActivity
     private Button btnStop;
     private TextView timerText;
     private PomodoroView timerImage;
+    private AlertDialog.Builder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,37 @@ public class PomodoroActivity extends AppCompatActivity
         timerText = (TextView) findViewById(R.id.timer_text);
         timerImage = (PomodoroView) findViewById(R.id.timer_image);
 
+        // Instantiate an AlertDialog.Builder with its constructor
+        dialogBuilder = new AlertDialog.Builder(this);
+
         Pomodoro.getInstance().addPomodoroListener(this);
 
         updateTimer(Pomodoro.getInstance().getCurrentFullDuration());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    public void gotoNextAction() {
+        if (Pomodoro.STATUS_SHORTBREAK == Pomodoro.getInstance().getStatus()) {
+            stopTimer(Pomodoro.STATUS_WORK);
+            return;
+        }
+        dialogBuilder.setMessage(R.string.dialog_message)
+                .setTitle(R.string.dialog_title)
+                .setNegativeButton(R.string.btn_text_continue_work, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        stopTimer(Pomodoro.STATUS_WORK);
+                    }
+                })
+                .setPositiveButton(R.string.btn_text_start_break, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startTimer(Pomodoro.STATUS_SHORTBREAK);
+                    }
+                });
+
+        // Get the AlertDialog from create()
+        dialogBuilder.create().show();
     }
 
     @Override
@@ -78,11 +105,19 @@ public class PomodoroActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    private void startTimer(int status) {
+        Pomodoro.getInstance().setStatus(status);
+        startTimer();
+    }
     private void startTimer() {
         Pomodoro.getInstance().startTimer();
         updateTimer(Pomodoro.getInstance().getCurrentFullDuration() - 1);
     }
 
+    private void stopTimer(int status) {
+        Pomodoro.getInstance().setStatus(status);
+        stopTimer();
+    }
     private void stopTimer() {
         Pomodoro.getInstance().stopTimer();
         updateTimer(Pomodoro.getInstance().getCurrentFullDuration());
@@ -121,5 +156,6 @@ public class PomodoroActivity extends AppCompatActivity
     @Override
     public void onTimerStop() {
         updateTimer(0);
+        gotoNextAction();
     }
 }

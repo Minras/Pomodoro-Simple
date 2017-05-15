@@ -5,18 +5,18 @@ import android.os.CountDownTimer;
 import java.util.ArrayList;
 
 public class Pomodoro {
-    private static final int STATUS_WORK = 0;
-    private static final int STATUS_SHORTBREAK = 1;
-    private static final int STATUS_LONGBREAK = 2;
+    public static final int STATUS_WORK = 0;
+    public static final int STATUS_SHORTBREAK = 1;
+    public static final int STATUS_LONGBREAK = 2;
 
     private int status = STATUS_WORK;
+    private boolean statusChanged = false;
 
     private static Pomodoro instance = new Pomodoro();
 
-    ArrayList<PomodoroListener> listeners = new ArrayList<> ();
+    private ArrayList<PomodoroListener> listeners = new ArrayList<> ();
 
-    private static int TICK_MS = 1000;
-    CountDownTimer timer;
+    private CountDownTimer timer;
 
     private boolean isCounting = false;
     // Current timer duration in milliseconds
@@ -33,7 +33,9 @@ public class Pomodoro {
         return currentFullDuration;
     }
     private void setCurrentFullDuration(int minutes) {
-        currentFullDuration = minutes != 1 ? minutes * 60 * 1000 : 5000;
+        currentFullDuration = minutes * 60 * 1000;
+        // DEBUG
+        // currentFullDuration = (minutes != 1 && minutes!=5) ? minutes * 60 * 1000 : 5000;
     }
     private void updateCurrentFullDuration() {
         switch (getStatus()) {
@@ -55,14 +57,20 @@ public class Pomodoro {
     }
 
     public void startTimer() {
-        timer = new CountDownTimer(getCurrentFullDuration(), TICK_MS) {
+        if (null != timer) {
+            timer.cancel();
+        }
+        timer = new CountDownTimer(getCurrentFullDuration(), 500) {
             public void onTick(long millisUntilFinished) {
                 fireOnTimerUpdate(millisUntilFinished);
             }
 
             public void onFinish() {
-                setNextStatus();
+                statusChanged = false;
                 fireOnTimerStop();
+                if (!statusChanged) {
+                    setNextStatus();
+                }
             }
         }.start();
         isCounting = true;
@@ -73,6 +81,7 @@ public class Pomodoro {
     }
 
     public void setStatus(int status) {
+        this.statusChanged = true;
         this.status = status;
     }
 
@@ -86,6 +95,7 @@ public class Pomodoro {
                 setStatus(STATUS_WORK);
                 break;
         }
+        statusChanged = true;
         updateCurrentFullDuration();
     }
 
